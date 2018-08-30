@@ -55,7 +55,7 @@ gulp.task('html', function () {
 
 gulp.task('styles', function () {
   return gulp.src(path.src.styles)
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(prefixer('last 2 versions'))
     // .pipe(sourcemaps.write())

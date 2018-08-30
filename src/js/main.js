@@ -11,22 +11,54 @@
 //     console.log(JSON.stringify(myJson));
 //   });
 
-var xhr = new XMLHttpRequest();
-var data = {};
 
-function initData () {
-  // console.log('onLoading...');
+const url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
+let obj = {};
 
-  xhr.open('GET', 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD');
-  xhr.responseType = 'text';
+function load (url, callback) {
+  const xhr = new XMLHttpRequest();
 
-  xhr.onload = function () {
-    data = xhr.response;
-    console.log(data);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      callback(xhr.response);
+    }
   }
 
+  xhr.open('GET', url, true);
   xhr.send();
-
 }
 
-// console.log(data);
+
+function showData (data) {
+  obj = JSON.parse(data);
+  console.log(obj);
+  document.getElementById('ask').innerText = obj.ask;
+  document.getElementById('btc-hour-change').innerText = obj.changes.price.hour;
+}
+
+
+load(url, showData);
+
+setInterval(function () {
+    load(url, showData);
+}, 1000);
+
+
+
+
+
+
+// function getData (dataLink) {
+//   xhr.open('GET', dataLink);
+//   xhr.responseType = 'text';
+//
+//   xhr.onload = function () {
+//     let data = {};
+//     data = xhr.response;
+//     console.log(data);
+//   }
+//
+//   xhr.send();
+// }
+//
+// getData(url);
