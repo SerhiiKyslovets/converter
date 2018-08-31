@@ -31,10 +31,48 @@ function load (url, callback) {
 
 function showData (data) {
   obj = JSON.parse(data);
-  console.log(obj);
-  document.getElementById('ask').innerText = obj.ask;
-  document.getElementById('btc-hour-change').innerText = obj.changes.price.hour;
+  // console.log(obj);
+
+  if (perBTC) {
+    document.getElementById('ask').innerText = obj.ask;
+    document.getElementById('btc-hour-change').innerText = obj.changes.percent.hour;
+    document.getElementById('btc-day-change').innerText = obj.changes.percent.day;
+    document.getElementById('btc-week-change').innerText = obj.changes.percent.week;
+    document.getElementById('btc-month-change').innerText = obj.changes.percent.month;
+
+    console.log('in percent');
+  } else {
+    document.getElementById('ask').innerText = obj.ask;
+    document.getElementById('btc-hour-change').innerText = obj.changes.price.hour;
+    document.getElementById('btc-day-change').innerText = obj.changes.price.day;
+    document.getElementById('btc-week-change').innerText = obj.changes.price.week;
+    document.getElementById('btc-month-change').innerText = obj.changes.price.month;
+
+    console.log('price');
+  }
 }
+
+
+let perBTC = false;
+
+const buttonPercentBTC = document.getElementById('per-btc');
+
+buttonPercentBTC.onclick = function (e) {
+  e.preventDefault();
+
+  if (perBTC) {
+    perBTC = false;
+    load(url, showData);
+  } else {
+    perBTC = true;
+    load(url, showData);
+  }
+
+  console.log(perBTC);
+}
+
+
+
 
 
 load(url, showData);
