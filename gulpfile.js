@@ -4,7 +4,6 @@ const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const rimraf = require('rimraf');
 const sass = require('gulp-sass');
-// const sourcemaps = require('gulp-sourcemaps');
 const prefixer = require('gulp-autoprefixer');
 
 const config = {
@@ -14,7 +13,7 @@ const config = {
         "/bower_components": "bower_components"
       }
   },
-  online: false,
+  online: true,
   tunel: true,
   host: 'localhost',
   port: 9000,
@@ -26,19 +25,19 @@ const path = {
     html: "./src/*.html",
     styles: "./src/styles/main.sass",
     js: "./src/js/**/*.js",
-    fonts: "./src/fonts/*.otf"
+    img: "./src/img/**/*.*"
   },
   dist: {
     html: "./dist/",
     styles: "./dist/styles/",
     js: "./dist/js/",
-    fonts: "./dist/fonts/"
+    img: "./dist/img/"
   },
   watch: {
     html: "./src/**/*.html",
     styles: "./src/styles/**/*.sass",
     js: "./src/js/**/*.js",
-    fonts: "./src/fonts/**/*.*"
+    img: "./src/img/"
   },
 
   clear: "./dist"
@@ -55,10 +54,8 @@ gulp.task('html', function () {
 
 gulp.task('styles', function () {
   return gulp.src(path.src.styles)
-    // .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(prefixer('last 2 versions'))
-    // .pipe(sourcemaps.write())
     .pipe(gulp.dest(path.dist.styles))
     .pipe(browserSync.stream());
 });
@@ -68,10 +65,10 @@ gulp.task('js', function () {
     .pipe(gulp.dest(path.dist.js));
 });
 
-gulp.task('fonts', function () {
-  gulp.src(path.src.fonts)
-    .pipe(gulp.dest(path.dist.fonts));
-});
+gulp.task('img', function () {
+  gulp.src(path.src.img)
+    .pipe(gulp.dest(path.dist.img));
+})
 
 gulp.task('server', ['compile'], function () {
   browserSync.init(config);
@@ -79,8 +76,8 @@ gulp.task('server', ['compile'], function () {
   gulp.watch([path.watch.html], ['html']).on('change', browserSync.reload);
   gulp.watch([path.watch.styles], ['styles']);
   gulp.watch([path.watch.js], ['js']).on('change', browserSync.reload);
-  gulp.watch([path.watch.fonts], ['fonts']);
+  gulp.watch([path.watch.img], ['img']);
 });
 
-gulp.task('compile', ['html', 'styles', 'js', 'fonts']);
+gulp.task('compile', ['html', 'styles', 'js', 'img']);
 gulp.task('default', ['server']);

@@ -1,20 +1,274 @@
-@import "./partial/fonts.sass"
 @import "./partial/variables.sass"
 
-.wrapper
+*
+  margin: 0
+  padding: 0
+
+html, body
+    margin: 0
+    height: 100%
+    width: 100%
+
+body
   width: 100%
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  font-family: 'Roboto', sans-serif
+  background: url('../img/bg.png') no-repeat
+  background-color: $blue-deep-dark
 
-  .currency-wrap
-    width: 300px
-    margin: 30px auto
-    padding: 20px
-    text-align: left
-    border: solid 1px #000
-    border-radius: 5px
+.wrapper
+  max-width: 985px
+  padding: 0 20px
+  margin: 70px auto
 
-    h1
+  @media (max-width: 1040px)
+    margin: 70px 20px
+    padding: 0
+    max-width: 100%
+
+  #header
+    display: block
+    max-width: 100%
+    padding: 20px 23px
+    border: solid 1px rgba($blue-pale, .15)
+    border-radius: 10px
+    background-color: rgba($white-light, .05)
+
+    .text-cont
+      display: inline-block
+      max-width: calc(100% - 327px)
+      width: 100%
       text-align: center
 
-    .per-btn
+      @media (max-width: 1040px)
+        display: block
+        max-width: 100%
+
+      .header-text
+        display: inline-block
+        font-size: 32px
+        margin-right: 23px
+        line-height: 60px
+        font-weight: 500
+        color: #fff
+
+        @media (max-width: 1040px)
+          margin-right: 0
+
+
+
+  #dropdown
+    display: inline-block
+    position: relative
+    float: right
+
+    @media (max-width: 1040px)
       display: block
-      margin: 15px 0
+      margin: 20px auto
+      float: none
+      width: 100%
+
+    label
+      display: block
+      position: relative
+      width: $dropdown-width
+      padding: 20px 15px
+      border: solid 1px $blue-bright
+      border-radius: 5px
+      background-color: $blue-dark
+      color: #fff
+      font-size: 16px
+      font-weight: 300
+
+      @media (max-width: 1040px)
+        margin: 0 auto
+        width: auto
+
+      &:hover
+        cursor: pointer
+
+      &::after
+        content: ''
+        display: block
+        position: absolute
+        right: 15px
+        top: 26px
+        transform: rotate(-135deg)
+        width: 5px
+        height: 5px
+        border-left: solid 1px $blue-bright
+        border-top: solid 1px $blue-bright
+
+    #currencyBlock
+      display: none
+      position: absolute
+      width: 295px
+      padding: 15px
+      margin-top: 8px
+      background-color: $blue-dark
+      border: solid 1px $blue-bright
+      border-radius: 5px
+
+      @media (max-width: 1040px)
+        width: calc(100% - 30px)
+
+      &.active
+        display: block
+
+      li
+        margin-bottom: 10px
+        color: #fff
+        font-size: 16px
+        font-weight: 300
+        text-decoration: none
+        list-style-type: none
+
+        &:last-child
+          margin-bottom: 0
+
+        &:hover
+          cursor: pointer
+
+
+  .blocks-cont
+
+    .currency-wrap
+      display: inline-block
+      width: 245px
+      margin: 30px 15px 0
+      padding: 20px 30px
+      text-align: left
+      border: none
+      border-radius: 10px
+
+      &:first-child
+        margin-left: 0
+
+      &:last-child
+        margin-right: 0
+
+      @media (max-width: 1040px)
+        display: block
+        margin:  30px auto
+
+        &:first-child
+          margin: 30px auto
+
+        &:last-child
+          margin: 30px auto
+
+      @media (max-width: 360px)
+        width: 200px
+
+
+      &.eth
+        background: url('../img/eth-bg.png') no-repeat
+        background-size: 108%
+        background-color: $green-bg
+
+      &.ltc
+        background: url('../img/ltc-bg.png') no-repeat
+        background-position: center 0
+        background-color: $grey-bg
+
+      &.btc
+        background: url('../img/btc-bg.png') no-repeat
+        background-position: center -40px
+        background-color: $brown-bg
+
+      h1
+        text-align: center
+        color: #fff
+        font-size: 22px
+        font-weight: 700
+
+
+
+      .img-cont
+        width: 100%
+        height: 150px
+
+        &.ltc
+          background: url('../img/ltc.png') no-repeat center 16px
+
+        &.btc
+          background: url('../img/btc.png') no-repeat center 5px
+
+      .price-row
+        display: block
+        color: #fff
+        font-size: 20px
+        font-weight: 700
+
+        .value
+          float: right
+
+      .percent-row
+        color: #fff
+        font-size: 14px
+        font-weight: 700
+        margin: 15px 0
+
+        input
+          width: 0
+          height: 0
+          visibility: hidden
+
+        label
+          display: inline-block
+          position: relative
+          float: right
+
+          width: 38px
+          height: 14px
+
+          box-shadow: inset 0 6px 7px -2px rgba(0,0,0,0.5)
+          background-color: $switch-off
+          border: none
+          border-radius: 10px
+
+          &:hover
+            cursor: pointer
+
+          &::after
+            content: ''
+            position: absolute
+            top: -3px
+            left: 0
+            width: 16px
+            height: 16px
+            border: solid 2px #fff
+            border-radius: 100px
+            background-color: $switch-radio
+            background: url('../img/radio.png') no-repeat center
+            transition: .1s ease
+
+        input:checked + label
+          background-color: $switch-on
+
+        input:checked + label::after
+          left: calc(100% - 18px)
+
+      .row
+        margin-bottom: 8px
+
+        &:last-child
+          margin-bottom: 0
+
+        .caption
+          color: rgba($white-light, 0.3)
+          font-size: 14px
+          font-weight: 700
+
+        .value
+          float: right
+          color: $green-value
+          font-size: 16px
+          font-weight: 700
+
+          &.red-text
+            color: $red-value
