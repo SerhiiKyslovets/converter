@@ -2,5 +2,5 @@
 
 ### How to run ###
 
-* $ npm install
-* $ gulp
+* npm install
+* gulp
